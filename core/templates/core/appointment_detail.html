@@ -1,0 +1,91 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Appointment Details - Hospital Management System{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2>Appointment Details</h2>
+        <div>
+            <a href="{% url 'appointment_update' appointment.pk %}" class="btn">Edit Appointment</a>
+            <a href="{% url 'appointment_delete' appointment.pk %}" class="btn btn-danger">Delete Appointment</a>
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h3>Appointment Information</h3>
+            <table class="table">
+                <tr>
+                    <th>Date:</th>
+                    <td>{{ appointment.appointment_date|date:"F d, Y" }}</td>
+                </tr>
+                <tr>
+                    <th>Time:</th>
+                    <td>{{ appointment.appointment_time|time:"H:i" }}</td>
+                </tr>
+                <tr>
+                    <th>Status:</th>
+                    <td>{{ appointment.status }}</td>
+                </tr>
+                <tr>
+                    <th>Scheduled:</th>
+                    <td>{{ appointment.created_at|date:"F d, Y" }}</td>
+                </tr>
+                {% if appointment.notes %}
+                <tr>
+                    <th>Notes:</th>
+                    <td>{{ appointment.notes|linebreaks }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+        
+        <div>
+            <h3>Patient Information</h3>
+            <table class="table">
+                <tr>
+                    <th>Name:</th>
+                    <td><a href="{% url 'patient_detail' appointment.patient.pk %}">{{ appointment.patient.name }}</a></td>
+                </tr>
+                <tr>
+                    <th>Age:</th>
+                    <td>{{ appointment.patient.age }}</td>
+                </tr>
+                <tr>
+                    <th>Gender:</th>
+                    <td>{{ appointment.patient.get_gender_display }}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>{{ appointment.patient.phone }}</td>
+                </tr>
+            </table>
+            
+            <h3>Doctor Information</h3>
+            <table class="table">
+                <tr>
+                    <th>Name:</th>
+                    <td><a href="{% url 'doctor_detail' appointment.doctor.pk %}">{{ appointment.doctor.name }}</a></td>
+                </tr>
+                <tr>
+                    <th>Specialization:</th>
+                    <td>{{ appointment.doctor.specialization }}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>{{ appointment.doctor.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ appointment.doctor.email }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem;">
+        <a href="{% url 'appointment_list' %}" class="btn">Back to Appointments</a>
+    </div>
+</div>
+{% endblock %} 

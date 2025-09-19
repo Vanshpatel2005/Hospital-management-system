@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Patients - Hospital Management System{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2>Patients</h2>
+        <a href="{% url 'patient_create' %}" class="btn btn-success">Add New Patient</a>
+    </div>
+    
+    {% if patients %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.get_gender_display }}</td>
+                    <td>{{ patient.phone }}</td>
+                    <td>{{ patient.created_at|date:"M d, Y" }}</td>
+                    <td>
+                        <a href="{% url 'patient_detail' patient.pk %}" class="btn">View</a>
+                        <a href="{% url 'patient_update' patient.pk %}" class="btn">Edit</a>
+                        <a href="{% url 'patient_delete' patient.pk %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No patients found. <a href="{% url 'patient_create' %}">Add the first patient</a></p>
+    {% endif %}
+</div>
+{% endblock %} 

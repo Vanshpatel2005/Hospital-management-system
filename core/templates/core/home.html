@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home - Hospital Management System{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Dashboard</h2>
+    <p>Welcome to the Hospital Management System. Here's an overview of your hospital data.</p>
+</div>
+
+<div class="stats">
+    <div class="stat-card">
+        <h3>Total Patients</h3>
+        <div class="number">{{ total_patients }}</div>
+    </div>
+    <div class="stat-card">
+        <h3>Total Doctors</h3>
+        <div class="number">{{ total_doctors }}</div>
+    </div>
+    <div class="stat-card">
+        <h3>Total Appointments</h3>
+        <div class="number">{{ total_appointments }}</div>
+    </div>
+    <div class="stat-card">
+        <h3>Today's Appointments</h3>
+        <div class="number">{{ today_appointments }}</div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Quick Actions</h3>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="{% url 'patient_create' %}" class="btn btn-success">Add New Patient</a>
+        <a href="{% url 'doctor_create' %}" class="btn btn-success">Add New Doctor</a>
+        <a href="{% url 'appointment_create' %}" class="btn btn-success">Schedule Appointment</a>
+        <a href="{% url 'patient_list' %}" class="btn">View All Patients</a>
+        <a href="{% url 'doctor_list' %}" class="btn">View All Doctors</a>
+        <a href="{% url 'appointment_list' %}" class="btn">View All Appointments</a>
+    </div>
+</div>
+{% endblock %} 

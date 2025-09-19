@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Doctors - Hospital Management System{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2>Doctors</h2>
+        <a href="{% url 'doctor_create' %}" class="btn btn-success">Add New Doctor</a>
+    </div>
+    
+    {% if doctors %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                    <td>{{ doctor.name }}</td>
+                    <td>{{ doctor.specialization }}</td>
+                    <td>{{ doctor.phone }}</td>
+                    <td>{{ doctor.email }}</td>
+                    <td>{{ doctor.created_at|date:"M d, Y" }}</td>
+                    <td>
+                        <a href="{% url 'doctor_detail' doctor.pk %}" class="btn">View</a>
+                        <a href="{% url 'doctor_update' doctor.pk %}" class="btn">Edit</a>
+                        <a href="{% url 'doctor_delete' doctor.pk %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No doctors found. <a href="{% url 'doctor_create' %}">Add the first doctor</a></p>
+    {% endif %}
+</div>
+{% endblock %} 

@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Delete Appointment - Hospital Management System{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Delete Appointment</h2>
+    
+    <p>Are you sure you want to delete the appointment for <strong>{{ appointment.patient.name }}</strong> with <strong>{{ appointment.doctor.name }}</strong> on <strong>{{ appointment.appointment_date|date:"F d, Y" }}</strong>?</p>
+    <p>This action cannot be undone.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn btn-danger">Delete Appointment</button>
+            <a href="{% url 'appointment_detail' appointment.pk %}" class="btn">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %} 
